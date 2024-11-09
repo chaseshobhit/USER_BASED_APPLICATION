@@ -1,0 +1,49 @@
+//To add Data 
+
+# Define the URL for the API endpoint                     
+>> $url = "http://localhost:3000/submit"                                                                          
+>> 
+>> # Define the headers as a hash table
+>> $headers = @{
+>>     "Content-Type" = "application/json"
+>> }
+>> 
+>> # Define the data to send as a hash table
+>> $data = @{
+>>     name = "Govind Tomar"
+>>     reg_no = "21BIT0021"
+>>     college = "VIT Vellore"
+>>     email = "govindtomar@gmail.com"
+>> }
+>>
+>> # Convert the data to JSON format
+>> $jsonData = $data | ConvertTo-Json
+>>
+>> # Make the POST request using Invoke-RestMethod
+>> $response = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $jsonData
+>>
+>> # Display the response
+>> $response
+>>
+
+//To fetch or read the data of any user 
+
+curl http://localhost:3000/user/<Object_ID>
+(Replace "<Object_ID>" with the actual ID)
+
+
+
+//TO UPDATE any field of the user
+
+//(If normal curl command dosen't work)
+
+$headers = @{
+    "Content-Type" = "application/json"
+}
+$url = "http://localhost:3000/update/<Object_ID>"  //(Replace "<Object_ID>" with the actual ID)
+$body = @{
+    "name" = "Hanuman Ji"
+    "email" = "hanuman@ayodha.com"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri $url -Method Put -Headers $headers -Body $body
