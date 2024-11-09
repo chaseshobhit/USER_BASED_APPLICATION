@@ -69,4 +69,24 @@ app.get('/user/:id',async(req,res)=>{
     }
 })
 
+
+app.put('/update/:id',async(req,res)=>{
+    const userId = req.params.id
+    const updateFields = req.body
+    if(!mongoose.Types.ObjectId.isValid(userId)){
+        return res.status(400).json({message: 'Invalid Id format'})
+    }
+    try{
+        const updateUser =  await User.findByIdAndUpdate(userId,updateFields,{new: true});
+        if(!updateUser){
+            return res.status(404).json({message: 'User not found'})
+        }
+        res.json({message: 'User updated successfully',data: updateUser})
+    }catch(error){
+        console.error('Error updating user: ',error)
+        res.status (500).json({message: 'Error updating user', error: error.message})
+    }
+
+})
+
 app.listen(port, () => [console.log(`Server is running on port ${port}`)]);

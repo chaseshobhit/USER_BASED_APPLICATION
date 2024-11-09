@@ -1,0 +1,14 @@
+//TO UPDATE
+
+(If normal curl command dosen't work)
+
+$headers = @{
+    "Content-Type" = "application/json"
+}
+$url = "http://localhost:3000/update/672cdfdf5d4b14e20a0f7acd"
+$body = @{
+    "name" = "Hanuman Ji"
+    "email" = "hanuman@ayodha.com"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri $url -Method Put -Headers $headers -Body $body
